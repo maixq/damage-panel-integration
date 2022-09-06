@@ -1,23 +1,13 @@
 from detectron2.engine import DefaultPredictor
 from detectron2.utils.visualizer import Visualizer
-
 from detectron2.config import get_cfg
 from detectron2.projects.point_rend import add_pointrend_config
 import detectron2.data.transforms as T
 from detectron2.data import MetadataCatalog
-from detectron2.utils.visualizer import GenericMask
-
-from PIL import Image
-import numpy as np
-import os
-import time
 from detectron2.utils.visualizer import ColorMode
-from IPython.display import display
+import time
 import logging
-# import torch
-# torch.manual_seed(42)
-# np.random.seed(42)
-# torch.use_deterministic_algorithms(True)
+from PIL import Image
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -121,7 +111,7 @@ class CarDetector():
     
 
 class DamageDetector():
-    def __init__(self, config, checkpoint, threshold=0.25, model_device='cpu'):
+    def __init__(self, config, checkpoint, threshold=0.5, model_device='cpu'):
         self.model = None
         self.classes = None
         self.class_metadata = None
@@ -190,38 +180,3 @@ class DamageDetector():
 
         return result, instances
 
-
-# Detector Objects
-panel_detector = PanelDetector(
-    panel_config='carro-ds-cv-carro_locus/license_plate_masking/configs/pointrend_rcnn_X_101_32x8d_FPN_3x_coco.yaml',
-    panel_checkpoint='model.pth',
-    )
-
-# Create CarDetector object
-car_detector = CarDetector(     
-config='damage_detection_data_batch_1/pointrend_rcnn_R_50_FPN_3x_coco.yaml',
-checkpoint='car_detection_model/car_detector_1.pth'
-)
-
-damage_detector = DamageDetector(
-    config='damage_detection_data_batch_1/pointrend_rcnn_R_50_FPN_3x_coco.yaml',
-    checkpoint='damage_model/damage_detector_1.pth',
-    )
-
-# Detect Image
-im_path = '/Users/maixueqiao/Downloads/Project/panel_detection/images/carro_4bUmlSxCVvsYBSoX.jpg'
-img = np.asarray(Image.open(im_path).convert('RGB'))
-
-# Panel Detection inference
-car_results, panel_instances = panel_detector.predict(img)
-out_im = Image.fromarray(car_results['image'].get_image())
-
-# # Car detection inference
-cropped, cropped_mask = car_detector.predict(img)
-cropped.save('crop.png')
-# Damage Detection
-# input_img = Image.open('/Users/maixueqiao/Downloads/Project/panel_detection/images/carro_4bUmlSxCVvsYBSoX.jpg').convert('RGB')
-
-# Damage Detection
-results, damage_instances = damage_detector.predict(np.array(img), filter_class=True)
-Image.fromarray(results['image'].get_image()).save('out8.jpg')
