@@ -21,7 +21,6 @@ MODEL:
   ROI_HEADS:
     NAME: "StandardROIHeads"
     IN_FEATURES: ["p2", "p3", "p4", "p5"]
-    NUM_CLASSES: 5
   ROI_BOX_HEAD:
     NAME: "FastRCNNConvFCHead"
     NUM_FC: 2
@@ -31,20 +30,13 @@ MODEL:
     NUM_CONV: 4
     POOLER_RESOLUTION: 14
 DATASETS:
-  TRAIN: ("damage_detection_data_batch_1_train",)
-  TEST: ("damage_detection_data_batch_1_val",)
-  # VAL: ("damage_detection_data_batch_1_val",)
-
+  TRAIN: ("coco_2017_train",)
+  TEST: ("coco_2017_val",)
 SOLVER:
-  IMS_PER_BATCH: 4
-  BASE_LR: 0.01
+  IMS_PER_BATCH: 16
+  BASE_LR: 0.02
   STEPS: (60000, 80000)
   MAX_ITER: 90000
 INPUT:
-  # MIN_SIZE_TRAIN: (640, 672, 704, 736, 768, 800)
-  MIN_SIZE_TRAIN: 1024
-  # additional input
-  MAX_SIZE_TEST: 1024
-  MAX_SIZE_TRAIN: 1024
-  MIN_SIZE_TEST: 1024
+  MIN_SIZE_TRAIN: (640, 672, 704, 736, 768, 800)
 VERSION: 2
