@@ -36,3 +36,11 @@ damage_d = {
             3: 'dirt',
             4: 'reflection'
         }
+
+old_damage_d = {
+            0: 'scratch',
+            1: 'paint_deterioration',
+            2: 'dirt',
+            3: 'dent',
+            4: 'reflection'
+        }
