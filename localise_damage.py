@@ -1,5 +1,5 @@
 from curses import panel
-from test import PanelDetector, CarDetector, DamageDetector
+from detectors import PanelDetector, CarDetector, DamageDetector
 from shapely import geometry
 from detectron2.utils.visualizer import GenericMask
 from yaml import parse
@@ -127,7 +127,7 @@ def car_damage_area(sum_d):
         for panel, damage_panel in im_panel_damage.items():
             # print(panel, damage_panel)
             for damage_name, area in damage_panel.items():
-                print(damage_name, np.sum(area), 'in', panel)
+                # print(damage_name, np.sum(area), 'in', panel)
                 if panel not in car_summary:
                     car_summary[panel] = np.sum(area)
                 else:
@@ -170,7 +170,7 @@ if __name__ == "__main__":
         else:
             summary_d[filename] = {}
 
-    print(summary_d)
+    # print(summary_d)
     with open("output.json", "w") as f:
         json.dump(summary_d, f, indent=4)
     

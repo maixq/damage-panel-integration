@@ -39,5 +39,13 @@ This is a sample directory structure.
 | detector.py  | return detector class  |
 | localise_damage.py  | return car_damage_area.json with the percentage of damage in each panel |
 
+### Instructions
 
+1. Install detectron2 environment
+
+2. Locate and calculate the percentage of damage per panel from different car angles
+
+``` 
+python localise_damage.py --input <path_to_image_folder>
+```
 
